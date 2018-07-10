@@ -8,6 +8,8 @@ A drag and drop binding for Knockout.
 
 This fork changed drop event model parameter to event parameter. Get model from event.data property if you access it so we access target element from event.element property. Please take notice!
 
+We get target element and we could know to which model from attribute like data-model that you see sample below
+
 ---
 
 [Click here to see an example](http://one-com.github.io/knockout-dragdrop/examples/)
@@ -29,11 +31,11 @@ Dragging between two lists:
 ```html
 <h2>Drag from here</h2>
 <ul data-bind="foreach: source">
-    <li data-bind="text: $data, dragZone: { name: 'lists' }"></li>
+    <li data-bind="text: $data, dragZone: { name: 'lists' }, attr: { 'data-model' : 'source' }"></li>
 </ul>
 
 <h2>Drop here</h2>
-<ul data-bind="foreach: target, dropZone: { accepts: 'lists', drop: drop }">
+<ul data-bind="foreach: target, dropZone: { accepts: 'lists', drop: drop }, attr: { 'data-model' : 'target' }">
     <li data-bind="text: $data"></li>
 </ul>
 ```
@@ -51,9 +53,10 @@ var model = {
         'Aiden'
     ]),
     target: ko.observableArray(),
-    drop: function (data, model) {
-        model.source.remove(data);
-        model.target.push(data);
+    drop: function (data, event) {
+        event.data.source.remove(data);
+        event.data.target.push(data);
+        // you found target element in event.element and so wich model from get the attribute or etc 
     }
 };
 ko.applyBindings(model);
