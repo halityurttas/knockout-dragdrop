@@ -2,6 +2,14 @@
 
 A drag and drop binding for Knockout.
 
+---
+
+## IMPORTANT (The aim of change)
+
+This fork changed drop event model parameter to event parameter. Get model from event.data property if you access it so we access target element from event.element property. Please take notice!
+
+---
+
 [Click here to see an example](http://one-com.github.io/knockout-dragdrop/examples/)
 
 ## Install
